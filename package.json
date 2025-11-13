@@ -1,0 +1,22 @@
+{
+  "name": "design_patterns",
+  "version": "1.0.0",
+  "type": "module",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/pino": "^7.0.4",
+    "jest": "^29.7.0",
+    "pino-pretty": "^13.1.2",
+    "ts-jest": "^29.4.5",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "prepare-tests": "mkdir -p tests"
+  },
+  "dependencies": {
+    "pino": "^10.1.0"
+  }
+}
