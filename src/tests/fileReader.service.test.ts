@@ -1,20 +1,19 @@
-import { FileReaderService } from "../services/FileReaderService.js";
+import { FileReaderService } from "../services/FileReaderService";
 
 describe("FileReaderService", () => {
   const fileReaderService = new FileReaderService();
 
-  // Проверяем чтение треугольников из файла
-  test("reads triangles correctly", () => {
-    const triangles = fileReaderService.readTriangles("./src/data/triangles.txt");
-    expect(triangles.length).toBeGreaterThan(0);
-    expect(triangles[0].getArea()).toBeGreaterThan(0);
-  });
+  test("reads shapes correctly", () => {
+    const shapes = fileReaderService.readShapes("./src/data/shapes.txt");
+    expect(shapes.length).toBeGreaterThan(0);
 
-  // Проверяем чтение конусов из файла
-  test("reads cones correctly", () => {
-    const cones = fileReaderService.readCones("./src/data/cones.txt");
-    expect(cones.length).toBeGreaterThan(0);
-    expect(cones[0].radius).toBeGreaterThan(0);
-    expect(cones[0].getVolume()).toBeGreaterThan(0);
+    const types = shapes.map(s => s.type);
+    expect(types).toContain("triangle");
+    expect(types).toContain("cone");
+
+    shapes.forEach(s => {
+      expect(s.id).toBeDefined();
+      expect(s.name).toBeDefined();
+    });
   });
 });

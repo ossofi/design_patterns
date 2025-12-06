@@ -1,0 +1,8 @@
+triangle 0 0 3 0 0 4
+rectangle 0 0 4 3
+oval 0 0 2 1
+cone 0 0 0 3 5
+cube 1 1 1 2
+sphere 0 0 0 3
+pyramid 0 0 0 4 5
+tetrahedron 0 0 0 3

@@ -1,33 +1,33 @@
-import path from "path";
+import { Repository } from "./repository/Repository.js";
+import { Warehouse } from "./warehouse/Warehouse.js";
+import { ShapeService } from "./services/ShapeService.js";
 import { FileReaderService } from "./services/FileReaderService.js";
-import { TriangleService } from "./services/TriangleService.js";
-import { ConeService } from "./services/ConeService.js";
 
-// Создаём экземпляры сервисов
-const fileReaderService = new FileReaderService();
-const triangleService = new TriangleService();
-const coneService = new ConeService();
+const repo = new Repository();
+const warehouse = Warehouse.getInstance();
+repo.attach(warehouse);
 
-// Формируем абсолютные пути к файлам данных
-const trianglesPath = path.resolve("./src/data/triangles.txt");
-const conesPath = path.resolve("./src/data/cones.txt");
+const shapeService = new ShapeService();
 
-// Читаем и валидируем треугольники и конусы из файлов
-const triangles = fileReaderService.readTriangles(trianglesPath);
-const cones = fileReaderService.readCones(conesPath);
+const fileReader = new FileReaderService();
+const shapes = fileReader.readShapes("./src/data/shapes.txt");
 
-// Вывод информации о треугольниках
-console.log("Triangles");
-triangles.forEach(t => {
-  console.log(
-    `${t.id}: area=${t.getArea()}, perimeter=${t.getPerimeter()}, right=${triangleService.isRight(t)}`
-  );
-});
+shapes.forEach(shape => repo.add(shape));
 
-// Вывод информации о конусах
-console.log("Cones");
-cones.forEach(c => {
-  console.log(
-    `${c.id}: base area=${c.getBaseArea()}, surface area=${c.getSurfaceArea()}, volume=${c.getVolume()}, on plane=${coneService.baseOnCoordinatePlane(c)}`
-  );
+shapes.forEach(shape => {
+  const metrics = warehouse.getMetrics(shape.id);
+  console.log(`Metrics for ${shape.name} (${shape.type}):`);
+  console.log(metrics);
+
+  console.log("Verified calculations via ShapeService:");
+  if (shapeService.getArea(shape) !== undefined) {
+    console.log(`  Area: ${shapeService.getArea(shape)}`);
+  }
+  if (shapeService.getPerimeter(shape) !== undefined) {
+    console.log(`  Perimeter: ${shapeService.getPerimeter(shape)}`);
+  }
+  if (shapeService.getVolume(shape) !== undefined) {
+    console.log(`  Volume: ${shapeService.getVolume(shape)}`);
+  }
+  console.log("---------------------------");
 });

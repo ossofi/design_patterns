@@ -1,10 +1,20 @@
-// Абстрактный класс для всех геометрических фигур.
-// Любая фигура обязана реализовать метод getArea().
+import { Point } from "./Point.js";
 
-export abstract class Shape {
-    constructor(public readonly id: string) {}
-  
-    // Абстрактный метод — должен быть реализован в наследниках
-    abstract getArea(): number;
-  }
-  
+export type ShapeType =
+  | "triangle"
+  | "rectangle"
+  | "oval"
+  | "cone"
+  | "cube"
+  | "sphere"
+  | "pyramid"
+  | "tetrahedron";
+
+export class Shape {
+  constructor(
+    public id: string,
+    public name: string,
+    public type: ShapeType,
+    public params: Record<string, any>
+  ) {}
+}
