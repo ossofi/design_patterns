@@ -1,0 +1,9 @@
+{
+    "name": "lab4-orders",
+    "version": "1.0.0",
+    "description": "Design Patterns Lab IV: Factory Method, Composite, Strategy",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js"
+    }
+  }
